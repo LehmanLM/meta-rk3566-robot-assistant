@@ -1,0 +1,11 @@
+[Unit]
+Description=Re-apply robot audio defaults every 30s
+# DAC 音量存在被神秘复位为 203 的情况（开机服务明明设过 240），
+# amixer cset 幂等且微秒级，定时重刷双保险
+[Timer]
+OnBootSec=45
+OnUnitActiveSec=30
+Unit=robot-audio-config.service
+
+[Install]
+WantedBy=timers.target

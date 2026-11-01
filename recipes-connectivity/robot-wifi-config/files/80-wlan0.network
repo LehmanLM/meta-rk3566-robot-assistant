@@ -1,0 +1,10 @@
+[Match]
+Name=wlan0
+
+[Network]
+DHCP=yes
+# 显式公共 DNS（阿里/腾讯）优先：路由器 DNS 代理不稳时反复
+# "Temporary failure in name resolution"（2026-10-18 板上实测）；
+# Domains=~. 使本链 DNS 承接所有查询，DHCP 下发 DNS 退为备用
+DNS=223.5.5.5 119.29.29.29
+Domains=~.

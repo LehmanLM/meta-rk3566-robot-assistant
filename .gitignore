@@ -1,0 +1,4 @@
+# 真实 WiFi 凭证（本地保留，绝不入库）
+wpa_supplicant-wlan0.conf.local
+*.pyc
+__pycache__/

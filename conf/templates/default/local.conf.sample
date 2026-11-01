@@ -1,0 +1,30 @@
+MACHINE ??= "rockchip-rk3566-taishanpi"
+PREFERRED_VERSION_linux-rockchip = "6.1%"
+PREFERRED_VERSION_linux-libc-headers = "6.1-custom"
+DL_DIR ?= "${TOPDIR}/../downloads"
+SSTATE_DIR ?= "${TOPDIR}/../sstate-cache"
+TMPDIR ?= "${TOPDIR}/tmp"
+BB_NUMBER_THREADS ?= "8"
+PARALLEL_MAKE ?= "-j 8"
+PACKAGE_CLASSES = "package_ipk"
+PREFERRED_PROVIDER_android-tools-conf = "android-tools-conf-rockchip"
+SOURCE_MIRRORS:prepend = " \
+    https://mirrors.tuna.tsinghua.edu.cn/yocto/sources/PATH \
+"
+PREMIRRORS += " \
+    git://sourceware.org/git/binutils-gdb.git;protocol=https  git://github.com/bminor/binutils-gdb.git;protocol=https \n \
+    git://github.com/JeffyCN/mirrors.git;protocol=https       git://github.com/JeffyCN/mirrors.git;protocol=https \n \
+"
+BB_GENERATE_MIRROR_TARBALLS = "1"
+BB_HASHSERVE = "auto"
+BB_SIGNATURE_HANDLER = "OEEquivHash"
+EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+INIT_MANAGER = "systemd"
+DISTRO_NAME = "robot-assistant"
+INHERIT:append = " rockchip-image"
+
+# libmad(mp3 解码, sox 依赖) 为 commercial 许可，本项目自用接受
+LICENSE_FLAGS_ACCEPTED = "commercial"
+
+# 拒绝 pulseaudio 回填 DISTRO_FEATURES（sox 等会因此拖入 avahi/bluez5 全家桶）
+DISTRO_FEATURES_BACKFILL_CONSIDERED:append = " pulseaudio"

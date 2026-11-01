@@ -1,0 +1,11 @@
+[Unit]
+Description=Robot audio defaults (rk809 mic/speaker mixer)
+After=sound.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/sbin/robot-audio-defaults.sh
+
+[Install]
+WantedBy=multi-user.target

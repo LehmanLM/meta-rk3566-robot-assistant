@@ -1,0 +1,12 @@
+# RK3566 机器人助手专用 wks（基于 meta-rockchip generic-gptdisk.wks.in）
+# 唯一差异：boot 分区固定 64MiB（原版随 boot.img 自增，kernel 一大就顶到
+# 分区上限，dd 单刷会 ENOSPC 截断砖机；2026-10-18 用户拍板可扩分区）
+# 注意：wic --fixed-size 默认单位是 MiB（ksparser sizetype("M")），写 64 即可
+#
+# 0~32K: gpt
+bootloader --ptable gpt
+part --source rawcopy --sourceparams="file=idblock.img" --align 32 --no-table
+part --source rawcopy --sourceparams="file=uboot.img" --part-name uboot --align 8192
+part --source rawcopy --sourceparams="file=trust.img" --part-name trust
+part --source rawcopy --sourceparams="file=boot.img" --part-name boot --fixed-size 64
+part / --source rootfs --fstype ${RK_ROOTFS_TYPE} --part-name rootfs --uuid ${RK_ROOTDEV_UUID} --align 8192

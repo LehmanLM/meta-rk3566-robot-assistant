@@ -1,0 +1,4 @@
+Common targets are:
+    rk3566-robot-assistant-image   (SD 卡 wic 镜像，dd 到 TF 卡首启验证)
+
+调试串口：板上 UART2（USB 调试口），1500000 8N1

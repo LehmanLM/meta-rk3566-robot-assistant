@@ -1,0 +1,16 @@
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  ##OEROOT##/meta \
+  ##OEROOT##/meta-poky \
+  ##OEROOT##/meta-yocto-bsp \
+  ${TOPDIR}/../meta/meta-openembedded/meta-oe \
+  ${TOPDIR}/../meta/meta-openembedded/meta-python \
+  ${TOPDIR}/../meta/meta-openembedded/meta-networking \
+  ${TOPDIR}/../meta/meta-openembedded/meta-multimedia \
+  ${TOPDIR}/../meta/meta-rockchip \
+  ${TOPDIR}/../meta/meta-rk3566-robot-assistant \
+  "
