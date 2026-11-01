@@ -8,16 +8,16 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 SRC_URI = "git://${TOPDIR}/../src/robot-ui;protocol=file;nobranch=1"
 SRC_URI += "file://sfx"
 # sfx/*.wav = Kenney CC0（interface-sounds/digital-audio 精选，ffmpeg 24k mono）
-SRCREV = "c52bc703d4724f6ef98dc1cf7b6b5bdc22e5762b"
+SRCREV = "daa249257427a3c23d5fbc1a981538eb4807fe3e"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = "lvgl"
+DEPENDS = "lvgl rockchip-mpp"
 
 do_compile() {
     ${CC} ${CFLAGS} -pthread ${LDFLAGS} \
-        -I${STAGING_INCDIR}/lvgl -I${S} \
-        robot-ui.c lv_font_cn20.c -o robot-ui -llvgl -lm
+        -I${STAGING_INCDIR}/lvgl -I${STAGING_INCDIR}/rockchip -I${S} \
+        robot-ui.c lv_font_cn20.c -o robot-ui -llvgl -lm -lrockchip_mpp
 }
 
 do_install() {

@@ -1,0 +1,13 @@
+[Unit]
+Description=camera stream reader (robot-ui fifo -> mediamtx RTSP)
+Requires=mediamtx.service
+After=mediamtx.service robot-ui.service
+
+[Service]
+ExecStartPre=/bin/rm -f /tmp/camh264.fifo
+ExecStart=/bin/sh -c 'mkfifo /tmp/camh264.fifo && exec ffmpeg -loglevel warning -fflags nobuffer -flags low_delay -f h264 -i /tmp/camh264.fifo -c:v copy -f rtsp rtsp://127.0.0.1:8554/cam'
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
